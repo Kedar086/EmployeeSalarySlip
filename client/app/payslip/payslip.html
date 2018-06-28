@@ -1,0 +1,45 @@
+<div ng-controller="payslipController">
+    <!-- begin row -->
+    <h3 style="text-align: center; color: green">Generate PaySlip</h3>
+    <div class="container">
+        <div class="form-group">
+            <label for="">First Name:</label>
+            <input class="form-control" type="text" name="fname" ng-model="fname" required>
+            <label for="">Last Name:</label>
+            <input class="form-control" type="text" name="lname" ng-model="lname" required>
+            <label for="">Salary(Numbers Only):</label>
+            <input class="form-control" type="text" name="salary" numbers-only min="0"ng-model="salary" required>
+            <label for="">Super Rate %:</label>
+            <input class="form-control" type="text" ng-minlength="1" ng-maxlength="2" min="1" max="12" name="srate" numbers-only ng-model="srate" required>
+            <label for="">Start Date:</label>
+            <input class="form-control" type="date" name="date" min="2017-07-01" max="2018-12-31"ng-model="date" required>
+        </div>
+        <button type="button" class="btn btn-primary" ng-click="submit()">submit</button>
+    </div>
+    <br>
+    <div class="container" ng-show="load">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>pay-period</th>
+                <th>gross-income</th>
+                <th>income-tax</th>
+                <th>net-income</th>
+                <th>super-amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in results">
+                <td>{{item.fullName}}</td>
+                <td>{{item.period}}</td>
+                <td>{{item.gross}}</td>
+                <td>{{item.tax}}</td>
+                <td>{{item.net}}</td>
+                <td>{{item.super}}</td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- end row -->
+</div>		

@@ -1,0 +1,52 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="/">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(client) app/vendor.css -->
+      <!-- bower:css -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,client}) app/app.css -->
+      <!-- injector:css -->
+      <!-- endinjector -->
+    <!-- endbuild -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+  </head>
+  <body ng-app="paySlipGeneratorApp">
+
+    <!-- Add your site or application content here -->
+    <div ui-view=""></div>
+
+
+      <!-- bower:js -->
+      <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+      <!-- endbower -->
+        
+        <!-- build:js(.tmp) app/app.js -->
+        
+        <script src="app/app.js"></script>
+        <script src="app/app.directive.js"></script>
+
+          <!-- injector:js -->
+          <!-- injector:js -->
+          <script src="app/payslip/payslip.js"></script>
+          <script src="app/payslip/payslip.controller.js"></script>
+          <script src="app/payslip/payslip.service.js"></script>
+
+          <!-- <script src="components/mongoose-error/mongoose-error.directive.js"></script> -->
+          <!-- endinjector -->
+          <!-- endinjector -->
+        <!-- endbuild -->
+</body>
+</html>
