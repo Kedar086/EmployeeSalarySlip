@@ -62,6 +62,9 @@ NODE_ENV=development PORT=9000 node server/app.js
 // in testing
 NODE_ENV=testing PORT=9000 node server/app.js
 
+// To Run the test cases
+npm run test
+
 ```
 ### Project Structure
 
