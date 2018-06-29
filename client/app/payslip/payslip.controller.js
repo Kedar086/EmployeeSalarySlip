@@ -8,18 +8,19 @@ angular.module('paySlipGeneratorApp')
             const employee = {
                 fname: $scope.fname,
                 lname: $scope.lname,
-                salary: $scope.salary,
-                srate: $scope.srate,
+                salary: parseInt($scope.salary),
+                srate: parseInt($scope.srate),
                 date: $scope.date
             };
 
             Payslip.genratePaySlip(employee)
                 .then(function (response) {
                     $scope.load = true;
+                    $scope.errorMsg = "";
                     $scope.data = response.data;
                 })
                 .catch(function (err) {
-                    $scope.errors.other = err.message;
+                    $scope.errorMsg = err.data.message;
                 });
         }
     });

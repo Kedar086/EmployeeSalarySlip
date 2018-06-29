@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const moment = require('moment');
 const {tax_slabs: brackets} = require('./../../config/environment');
+const Joi = require('joi');
 
 // function to generate payslip as per tax deduction.
 const create = (req, res) => {
@@ -10,9 +11,11 @@ const create = (req, res) => {
     const { body } = req;
     const data = { ...body };
 
-    const validationResponse = validations(data);
-    if(!validationResponse.success){
-      return res.status(400).send(validationResponse);
+    const { error } = validateSchema(data);
+
+    if(error){
+      const { details: errorDetails } = error;
+      return res.status(400).send({status:400,message: errorDetails[0].message.replace(/"/g,"")});
     }
     const dateRange = getMonthDateRange(data.date);
     const gross = Math.round(data.salary/12);
@@ -29,28 +32,33 @@ const create = (req, res) => {
     });
     return res.status(200).send(payslip);
   }catch(err){
+    debugger;
     handleError(res,err);
   }
 };
 
-const validations = (data) => {
-  if(data.salary>=0){
-    return {success : true,message:"Valid salary"};
-  }else{
-    return {success : false,message:"Invalid salary, should not be less then zero"};
-  }
+const validateSchema = (inputSchema) => {
+
+  const schema = Joi.object().keys({
+    fname: Joi.string().required(),
+    lname: Joi.string().required(),
+    salary: Joi.number().min(1),
+    srate: Joi.number().min(1).max(12),
+    date: Joi.date()
+  });
+
+  // Return result.
+  const result = Joi.validate(inputSchema, schema);
+
+  return result;
 };
 
 const getMonthDateRange = (date) => {
-  try {
-    const year = moment(date).format('YYYY');
-    const month = moment(date).format('M');
-    const startDate = moment([year, month - 1]);
-    const endDate = moment(startDate).endOf('month');
-    return { startDate, endDate };
-  } catch (error) {
-    throw new Error(error);
-  }
+  const year = moment(date).format('YYYY');
+  const month = moment(date).format('M');
+  const startDate = moment([year, month - 1]);
+  const endDate = moment(startDate).endOf('month');
+  return { startDate, endDate };
 }
 
 const handleError = (res, err) => {

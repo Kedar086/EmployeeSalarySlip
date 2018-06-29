@@ -15,6 +15,11 @@
             <input class="form-control" type="date" name="date" min="2017-07-01" max="2018-12-31"ng-model="date" required>
         </div>
         <button type="button" class="btn btn-primary" ng-click="submit()">submit</button>
+        <div style="color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;" ng-show="errorMsg">
+            <strong>Danger!</strong> {{ errorMsg }}
+        </div>
     </div>
     <br>
     <div class="container" ng-show="load">
