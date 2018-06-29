@@ -10,15 +10,15 @@ const create = (req, res) => {
     const { body } = req;
     const data = { ...body };
 
-    const isvalid = validations(data);
-    if(isvalid.success === false){
-      return res.status(400).send(isvalid);
+    const validationResponse = validations(data);
+    if(!validationResponse.success){
+      return res.status(400).send(validationResponse);
     }
     const dateRange = getMonthDateRange(data.date);
     const gross = Math.round(data.salary/12);
     const bracket = _.find(brackets, function(d){ return data.salary >= d.lowest && data.salary <= d.highest });
     const tax = Math.round((bracket.base + (data.salary - bracket.threshold) * bracket.rate) / 12);
-    const payslip = []
+    const payslip = [];
     payslip.push({
       fullName: data.fname +' '+ data.lname,
       period: moment(dateRange.startDate).format('LL') +'-'+ moment(dateRange.endDate).format('LL'),
