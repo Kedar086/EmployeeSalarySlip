@@ -19,7 +19,7 @@ const create = (req, res) => {
     }
     const dateRange = getMonthDateRange(data.date);
     const gross = Math.round(data.salary/12);
-    const bracket = _.find(brackets, function(d){ return data.salary >= d.lowest && data.salary <= d.highest });
+    const bracket = _.find(brackets, (d) => { return data.salary >= d.lowest && data.salary <= d.highest });
     const tax = Math.round((bracket.base + (data.salary - bracket.threshold) * bracket.rate) / 12);
     const payslip = [];
     payslip.push({
